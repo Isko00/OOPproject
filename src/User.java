@@ -51,7 +51,7 @@ public abstract class User implements Serializable {
         User u = (User) o;
         return hashCode() == u.hashCode();
 	}
-	
+
 	public String toString() {
 		return "id [" + id + "]\n"
 				+ "info [" + info.toString() + "]";
