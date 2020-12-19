@@ -1,9 +1,10 @@
+package main;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Order implements Serializable {
-
+public class Message implements Cloneable, Serializable {
+	
 	/**
 	 * 
 	 */
@@ -12,54 +13,58 @@ public class Order implements Serializable {
 	private Calendar date = new GregorianCalendar();
 	private int from;
 	private int to;
-	private Statuses status = Statuses.NEW;
+	private boolean status = false; // 1 read
+	private Message re = null;
 
-	public Order(String message, int from, int to) {
+	public Message(String message, int from, int to, Message re) {
 		this.message = message;
 		this.from = from;
 		this.to = to;
+		this.re = re;
+	} 
+	
+	public Message(String message, int from, int to) {
+		this(message, from, to, null);
 	}
 
-	public Order() { 
-		this("", 0, 0);
+	public Message() { 
+		this("", 0, 0, new Message());
 	}
 	
 	public String getMessage() {
 		return message;
 	}
 	
-	public Statuses getStatus() { return status; }
-	
 	public void setFrom(int from) {
 		this.from = from;
 	}
-	
 	public void setTo(int to) {
 		this.to = to;
 	}
-	
-	public void setStatus(Statuses status) {
+	public void setRe(Message re) {
+		this.re = re;
+	}
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
 	public void edit(String message) {
 		this.message = message;
 	}
-	
 	public void delete() {
 		message = "Deleted";
 	}
 	
 	public Object clone() throws CloneNotSupportedException{
-		Order o = (Order)super.clone(); 
-		return o;
+		Message m = (Message)super.clone(); 
+		return m;
 	}
-	
 	public Object forward(int to, Message re) throws CloneNotSupportedException {
-		Order o = (Order)this.clone();
-		o.setTo(to);
-		o.setFrom(this.to);
-		return o;
+		Message m = (Message)this.clone();
+		m.setTo(to);
+		m.setRe(re);
+		m.setFrom(this.to);
+		m.setStatus(false);
+		return m;
 	}
 
 	public int HashCode() {
@@ -79,8 +84,8 @@ public class Order implements Serializable {
 			return false;
 		}
 
-		Order order = (Order)o;
-		return this.hashCode() == order.hashCode();
+		Message m = (Message)o;
+		return this.hashCode() == m.hashCode();
 	}
 
 	public String toString() {
@@ -88,6 +93,7 @@ public class Order implements Serializable {
 				+ "Date [" + date + "]\n" 
 				+ "From [" + from + "]\n" 
 				+ "To [" + to + "]\n" 
-				+ "Status [" + status + "]\n";
+				+ "Status [" + status + "]\n"
+				+ "Re [" + ((re != null) ? re.getMessage() : "") + "]";
 	}
 }

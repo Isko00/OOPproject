@@ -1,3 +1,4 @@
+package main;
 public class Marks {
 	/* First certification = marks[0]
 	 * Second certification = marks[1]

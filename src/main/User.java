@@ -1,6 +1,7 @@
+package main;
 import java.io.Serializable;
 
-public abstract class User implements Serializable {
+public class User implements Serializable {
 
 	/**
 	 * 
@@ -11,6 +12,10 @@ public abstract class User implements Serializable {
 	private String password;
 	private UserInfo info;
 
+	public static void main(String[] args) {
+		System.out.println("qwe");
+	}
+	
 	public User(String password, UserInfo info) {
 		this.setPassword(password);
 		this.info = info;
@@ -37,6 +42,10 @@ public abstract class User implements Serializable {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
 	}
 	
 	public int hashCode() { return id; }

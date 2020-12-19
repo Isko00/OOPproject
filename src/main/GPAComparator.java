@@ -1,3 +1,4 @@
+package main;
 import java.util.Comparator;
 
 public class GPAComparator implements Comparator<Student>{

@@ -1,9 +1,10 @@
+package main;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Message implements Cloneable, Serializable {
-	
+public class Order implements Serializable, Comparable<Order> {
+
 	/**
 	 * 
 	 */
@@ -11,64 +12,64 @@ public class Message implements Cloneable, Serializable {
 	private String message = "";
 	private Calendar date = new GregorianCalendar();
 	private int from;
-	private int to;
-	private boolean status = false; // 1 read
-	private Message re = null;
+	private Statuses status = Statuses.NEW;
 
-	public Message(String message, int from, int to, Message re) {
+	public Order(String message, int from) {
 		this.message = message;
 		this.from = from;
-		this.to = to;
-		this.re = re;
-	} 
+	}
 
-	public Message() { 
-		this("", 0, 0, new Message());
+	public Order() { 
+		this("", 0);
 	}
 	
 	public String getMessage() {
 		return message;
 	}
 	
+	public int getFrom() { return from; }
+	
+	public Statuses getStatus() { return status; }
+	
+	public Calendar getDate() { return date; }
+	
 	public void setFrom(int from) {
 		this.from = from;
 	}
-	public void setTo(int to) {
-		this.to = to;
-	}
-	public void setRe(Message re) {
-		this.re = re;
-	}
-	public void setStatus(boolean status) {
+	
+	public void setStatus(Statuses status) {
 		this.status = status;
 	}
+	
 	public void edit(String message) {
 		this.message = message;
 	}
+	
 	public void delete() {
 		message = "Deleted";
 	}
 	
 	public Object clone() throws CloneNotSupportedException{
-		Message m = (Message)super.clone(); 
-		return m;
-	}
-	public Object forward(int to, Message re) throws CloneNotSupportedException {
-		Message m = (Message)this.clone();
-		m.setTo(to);
-		m.setRe(re);
-		m.setFrom(this.to);
-		m.setStatus(false);
-		return m;
+		Order o = (Order)super.clone(); 
+		return o;
 	}
 
-	public int HashCode() {
+	public boolean isNew() { return status == Statuses.NEW; }
+	
+	public int compareTo(Order o){
+		if (status == o.getStatus()) {
+			return date.compareTo(o.getDate());
+		} else {
+			return (int) Math.signum(status.getCode() - o.getStatus().getCode());
+		}
+    }
+	
+	public int hashCode() {
 		int prime = 17;
 		int res = 11;
 		res = res * prime + message.hashCode();
 		res = res * prime + date.hashCode();
 		res = res * prime + from;
-		res = res * prime + to;
 		return res % 1000007 + 1000007;
 	}
 
@@ -79,16 +80,14 @@ public class Message implements Cloneable, Serializable {
 			return false;
 		}
 
-		Message m = (Message)o;
-		return this.hashCode() == m.hashCode();
+		Order order = (Order)o;
+		return this.hashCode() == order.hashCode();
 	}
 
 	public String toString() {
 		return "Message [" + message + "]\n" 
 				+ "Date [" + date + "]\n" 
 				+ "From [" + from + "]\n" 
-				+ "To [" + to + "]\n" 
-				+ "Status [" + status + "]\n"
-				+ "Re [" + ((re != null) ? re.getMessage() : "") + "]";
+				+ "Status [" + status + "]\n";
 	}
 }
