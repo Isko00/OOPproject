@@ -1,5 +1,6 @@
 package main;
 
+import java.util.HashSet;
 import java.util.Vector;
 
 public class Manager extends ORManager {
@@ -16,6 +17,10 @@ public class Manager extends ORManager {
 	public Order getUnreadOrder() {
 		return super.getUnreadOrder(orders);
 	}
+
+	public Vector<Order> getOrders() {
+		return orders;
+	}
 	
 	public static void addOrder(Order o) {
 		addOrder(orders, o);
@@ -25,12 +30,71 @@ public class Manager extends ORManager {
 		teacher.addCourse(course);
 	}
 	
-	public void addCourse(int tId, Course course) {
-		Teacher t = (Teacher) getSys().getUser(tId);
-		addCourse(t, course);
+	public void addCourse(int tId, String courseName) throws UserDataException {
+		User u = getSys().getUser(tId);
+		Teacher t;
+		if (u instanceof Teacher) {
+			t = (Teacher) u;
+		} else {
+			throw new UserDataException("Wrong id!");
+		}
+		addCourse(t, new Course(courseName, t));
 	}
 
 	public UserInfo getTeacherInfo(int tId) {
 		return getSys().getUser(tId).getInfo();
+	}
+	
+	public void addStudentToCourse(Student s, Course c) {
+		c.addStudent(s);
+	}
+	
+	public void addStudentToCourse(int sId, Course c) {
+		Student s = (Student) getSys().getUser(sId);
+		addStudentToCourse(s, c);
+	}
+	
+	public void addStudentToCourse(int sId, String courseName) 
+			throws CourseOperationException {
+		
+		Course c = getCourse(courseName);
+		if (c == null) {
+			throw new CourseOperationException("Wrong course name!");
+		}
+		addStudentToCourse(sId, c);
+	}
+	
+	public HashSet<Course> getAllCourses() {
+		HashSet<Course> result = new HashSet<Course>();
+		
+		for (User u : getSys().getAllUsers().get(UserType.TEACHER)) {
+			Teacher t = (Teacher) u;
+			result.addAll(t.getCourses());
+		}
+		
+		return result;
+	}
+	
+	public void deleteCourse(int tId, String courseName) throws UserDataException {
+		User u = getSys().getUser(tId);
+		Teacher t;
+		if (u instanceof Teacher) {
+			t = (Teacher) u;
+		} else {
+			throw new UserDataException("Wrong id!");
+		}
+		t.deleteCourse(courseName);
+	}
+	
+	public Course getCourse(String name) {
+		for (User u : getSys().getAllUsers().get(UserType.TEACHER)) {
+			Teacher t = (Teacher) u;
+			for (Course c : t.getCourses()) {
+				if (c.getName().equals(name)) {
+					return c;
+				}
+			}
+		}
+		return null;
 	}
 }

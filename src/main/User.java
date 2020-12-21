@@ -8,7 +8,6 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = -5768743020744465843L;
 	private final int id;
-	private static int lastId = 0;
 	private String password;
 	private UserInfo info;
 	private UniversitySystem system = UniversitySystem.getInstance();
@@ -17,10 +16,15 @@ public class User implements Serializable {
 		System.out.println("qwe");
 	}
 	
+	public User(String password, UniversitySystem system) {
+		this(password);
+		this.system = system;
+	}
+	
 	public User(String password, UserInfo info) {
 		this.setPassword(password);
 		this.info = info;
-		id = lastId++;
+		id = system.getLastId() + 1;
 	}
 	
 	public User(String password) {

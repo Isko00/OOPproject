@@ -1,6 +1,6 @@
 /bin/
 /generate/
-.classpath
-.project
+*.classpath
+*.project
 
-.class
+*.class

@@ -12,11 +12,17 @@ public class Admin extends ORManager {
 	
 	public Admin() { super(); }
 	
-	public Admin(String password) { super(password); }
+	public Admin(String password, UniversitySystem system) { 
+		super(password, system); 
+	}
 	
 	@Override
 	public Order getUnreadOrder() {
 		return super.getUnreadOrder(orders);
+	}
+	
+	public Vector<Order> getOrders() {
+		return orders;
 	}
 	
 	public static void addOrder(Order o) {
@@ -39,7 +45,7 @@ public class Admin extends ORManager {
 			 u = new TechSupport(password);
 		    break;
 		  case ADMIN:
-			 u = new Admin(password);
+			 u = new Admin(password, getSys());
 		    break;
 		  default:
 			 u = new User();
@@ -60,5 +66,10 @@ public class Admin extends ORManager {
 		UserInfo info = u.getInfo();
 		info.setProperty(property, value);
 		u.setInfo(info);
+	}
+	
+	public void updateInfo (int userId, String property, String value) {
+		User u = getSys().getUser(userId);
+		updateInfo(u, property, value);
 	}
 }

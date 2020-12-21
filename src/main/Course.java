@@ -16,13 +16,14 @@ public class Course implements Serializable{
 	private HashMap <GregorianCalendar, HashMap<Student, Boolean> > attendance;
 	
 	public Course() {}
+
 	public Course(String name, Teacher teacher) {
 		this.name = name;
 	}
 	
 	//Add student for course
 	public void addStudent(Student student) {
-		studentsMarks.put(student, null);
+		studentsMarks.put(student, new Marks());
 	}
 
 	//Delete course file

@@ -1,5 +1,6 @@
 package main;
 import java.io.*;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -46,6 +47,7 @@ public class UniversitySystem implements Serializable {
 		Vector<User> admins = new Vector<User>();
 		Vector<User> managers = new Vector<User>();
 		Vector<User> techSupports = new Vector<User>();
+		System.out.println("size " + users.values().size());
 		for (User u : users.values()) {
 			if (u instanceof Teacher) {
 				teachers.add(u);
@@ -75,11 +77,11 @@ public class UniversitySystem implements Serializable {
 		users.putIfAbsent((Integer) user.getId(), user);
 	}
 	
-	public User autorise(int id, String password) throws UserAuthorizationException {
+	public User autorise(int id, String password) throws UserDataException {
 		if (!users.containsKey(id)) {
-			throw new UserAuthorizationException("Wrong login!");
+			throw new UserDataException("Wrong login!");
 		} else if (!users.get(id).checkPassword(password)) {
-			throw new UserAuthorizationException("Wrong login!");
+			throw new UserDataException("Wrong password!");
 		} else {
 			return (User) users.get(id);
 		}
@@ -87,5 +89,19 @@ public class UniversitySystem implements Serializable {
 	
 	public void deleteUser(int id) {
 		users.remove(id);
+	}
+	
+	public int getLastId() {
+		return Collections.max(users.keySet());
+	}
+	
+	public String toString() {
+		HashMap<UserType, Vector<User> > map = getAllUsers();
+		String result = "";
+		for (UserType u : map.keySet()) {
+			result += u + " [" + map.get(u) + "]\n";
+		}
+		
+		return result;
 	}
 }

@@ -69,6 +69,15 @@ public class Teacher extends Requester {
 		Manager.addOrder(o);
 	}
 	
+	public void deleteCourse(String courseName) {
+		for (Course c : courses) {
+			if (c.getName().equals(courseName)) {
+				courses.remove(c);
+				return;
+			}
+		}
+	}
+	
 	HashMap <Student, Marks> getStudentsForCourse(Course course) {
 		return course.getStudentMarks();
 	}
