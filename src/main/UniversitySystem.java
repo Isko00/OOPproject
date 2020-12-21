@@ -18,17 +18,30 @@ public class UniversitySystem implements Serializable {
 	static ObjectOutputStream oos;
 	static ObjectInputStream oin;
 
-	public static void deserialize() throws IOException, ClassNotFoundException{
-		fis = new FileInputStream("backUp");
-		oin = new ObjectInputStream(fis);
-		INSTANCE = (UniversitySystem) oin.readObject();
-	}
-	
 	public static void serialize() throws IOException {
+		for (User u : INSTANCE.getUsers().values()) {
+			if (u instanceof ORManager) {
+				ORManager o = (ORManager) u;
+				o.saveOrders();
+			}
+		}
 		fos = new FileOutputStream("backUp");
 		oos = new ObjectOutputStream(fos);
 		oos.writeObject(INSTANCE);
 		oos.close();
+	}
+	
+	public static void deserialize() throws IOException, ClassNotFoundException{
+		fis = new FileInputStream("backUp");
+		oin = new ObjectInputStream(fis);
+		INSTANCE = (UniversitySystem) oin.readObject();
+		for (User u : INSTANCE.getUsers().values()) {
+			if (u instanceof ORManager) {
+				ORManager o = (ORManager) u;
+				o.loadOrders();
+			}
+		}
+		oin.close();
 	}
 	
 	private UniversitySystem() {}
@@ -41,6 +54,10 @@ public class UniversitySystem implements Serializable {
 		return users.get(id);
 	}
 	
+	public HashMap<Integer, User> getUsers() {
+		return users;
+	}
+
 	public HashMap<UserType, Vector<User>> getAllUsers() {
 		Vector<User> teachers = new Vector<User>();
 		Vector<User> students = new Vector<User>();

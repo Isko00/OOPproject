@@ -72,4 +72,14 @@ public class Admin extends ORManager {
 		User u = getSys().getUser(userId);
 		updateInfo(u, property, value);
 	}
+
+	@Override
+	public void saveOrders() {
+		reserve = orders;
+	}
+
+	@Override
+	public void loadOrders() {
+		reserve = orders;
+	}
 }

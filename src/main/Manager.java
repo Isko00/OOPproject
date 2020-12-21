@@ -8,6 +8,7 @@ public class Manager extends ORManager {
 	 * 
 	 */
 	private static final long serialVersionUID = -6358131110453879595L;
+	
 	private static Vector<Order> orders = new Vector<Order>();
 	
 	public Manager() { super(); }
@@ -45,7 +46,7 @@ public class Manager extends ORManager {
 		return getSys().getUser(tId).getInfo();
 	}
 	
-	public void addStudentToCourse(Student s, Course c) {
+	public static void addStudentToCourse(Student s, Course c) {
 		c.addStudent(s);
 	}
 	
@@ -96,5 +97,15 @@ public class Manager extends ORManager {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void saveOrders() {
+		reserve = orders;
+	}
+
+	@Override
+	public void loadOrders() {
+		orders = reserve;
 	}
 }

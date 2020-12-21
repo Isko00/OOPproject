@@ -99,17 +99,13 @@ public class UniversitySystemTester {
 			if (u instanceof Student) {
 				//return studentMenu();
 			} else if (u instanceof Teacher) {
-				UST.println("te");
 				//return teacherMenu();
 			} else if (u instanceof Manager) {
-				UST.println("ma");
-				//continue managerMenu;
+				ManagerTester.menu(UST, US);
 			} else if (u instanceof TechSupport) {
-				UST.println("tec");
-				//continue techSupportMenu;
+				TechSupportTester.menu(UST, US);
 			} else if (u instanceof Admin) {
-				UST.println("ad");
-				//continue adminMenu;
+				AdminTester.menu(UST, US);
 			}
 			return;
 

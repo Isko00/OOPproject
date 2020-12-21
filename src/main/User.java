@@ -10,15 +10,11 @@ public class User implements Serializable {
 	private final int id;
 	private String password;
 	private UserInfo info;
-	private UniversitySystem system = UniversitySystem.getInstance();
-
-	public static void main(String[] args) {
-		System.out.println("qwe");
-	}
+	private static UniversitySystem system = UniversitySystem.getInstance();
 	
-	public User(String password, UniversitySystem system) {
+	public User(String password, UniversitySystem newSystem) {
 		this(password);
-		this.system = system;
+		system = newSystem;
 	}
 	
 	public User(String password, UserInfo info) {
@@ -40,7 +36,7 @@ public class User implements Serializable {
 	public UserInfo getInfo() { return info; }
 	
 	public String getPassword() { return password; }
-
+	
 	public UniversitySystem getSys() { return system; }
 	
 	public void setInfo(UserInfo info) { this.info = info; }
