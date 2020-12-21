@@ -1,5 +1,5 @@
 package main;
-import java.util.Vector;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -11,37 +11,79 @@ public class Teacher extends Requester {
 	private HashSet<Course> courses = new HashSet<Course> ();
 	
 	public Teacher() {super();}
+	
 	public Teacher(String password) {
 		super(password);
 	}
-	
-	public void addCourseFile(Course course, CourseFile courseFile) {
-		course.addFile(course, courseFile);
-	}
+		
 	public void delCourseFile(Course course, CourseFile courseFile) {
-		course.delete(course, courseFile);
+		course.deleteFile(courseFile);
 	}
+	
 	public HashSet<Course> getCourses() {
 		return courses;
 	}
 	
-	public void sendItOrder(String message) {
-		Order o = new Order(message);
-		techSupportOrders.addNewOrder(o);
+	public void addCourseFile(Course c, CourseFile cf) {
+		c.addFile(cf);
 	}
-	public void putMark(Course course, int student, int mark) {
-		for(Student s: course.getStudentMarks.keySet()) {
-			if(s.getId == student) {
-				course.putMark(Student, mark);
-				break;
+	
+	public HashMap<Course, Marks> getMarksForStudent(Student s) {
+		HashMap<Course, Marks> result
+				= new HashMap<Course, Marks>();
+		for (Course c : courses) {
+			if (c.containsStudent(s)) {
+				result.put(c, c.getMarksForStudent(s));
 			}
 		}
+
+		return result;
 	}
+	
+	public boolean hasStudent(Student s) {
+		for (Course c : courses) {
+			if (c.containsStudent(s)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	public void sendItOrder(String message) {
+		Order o = new Order(message, getId());
+		TechSupport.addOrder(o);
+	}
+	
+	public void putMark(Course course, int studentId, int mark) {
+		Student s = (Student) getSys().getUser(studentId);
+		course.putMark(s, mark);
+	}
+	
+	public void addCourse(Course course) {
+		courses.add(course);
+	}
+	
 	public void sendCourseAdditionOrder(Course c) {
-		OrderCourseAddition o = new OrderCourseAddition(c);
-		managerOrders.addNewOrder(o);
+		Order o = new Order(c.toString(), getId());
+		Manager.addOrder(o);
 	}
+	
 	HashMap <Student, Marks> getStudentsForCourse(Course course) {
 		return course.getStudentMarks();
+	}
+	
+	/* Bonus */
+	// Attendance list for specific course
+	public void putAttendance(Course c, GregorianCalendar date, 
+			HashMap <Student, Boolean> attendance) {
+		
+		c.putAttendance(date, attendance);
+	}
+	 
+	public HashMap<Student, Boolean> getAttendance(Course course, 
+			GregorianCalendar date) {
+		
+		return course.getAttendance(date);
 	}
 }

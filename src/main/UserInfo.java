@@ -13,8 +13,12 @@ public class UserInfo implements Serializable {
 		properties = new HashMap<String, String>();
 	}
 	
-	public void setProperty(String property, String value) {
+	public void addProperty(String property, String value) {
 		properties.putIfAbsent(property, value);
+	}
+	
+	public void setProperty(String property, String value) {
+		properties.put(property, value);
 	}
 	
 	public String getProperty(String property) {
@@ -39,7 +43,7 @@ public class UserInfo implements Serializable {
 		for (HashMap.Entry<String, String> entry : properties.entrySet()) {
 		    String key = entry.getKey();
 		    String value = entry.getValue();
-		    result += key + " [" + value + "]\n";
+		    result += key + " [" + value + "]";
 		}
 
 		return result;

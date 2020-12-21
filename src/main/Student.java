@@ -1,5 +1,6 @@
 package main;
 import java.util.Vector;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -14,50 +15,63 @@ public class Student extends Requester {
 		super(password);
 	}
 	
-	HashMap <Course, HashSet <CourseFile> > getCourseFiles() {
-		HashMap <Course, HashSet <CourseFile> > ret;
-		Vector <Teacher> teachers = UniversitySystem.getTeachers;
-		for(Teacher t : teachers)
-			for(Course c : t.getCourses)
-				for(Student s : c.getStudentMarks.keySet())
-					if(s.equals(this)) { 
-						ret.put(c, c.getCourseFiles);
-						break;
-					}
-		return ret;
+	public Vector<User> teachers 
+			= getSys().getAllUsers().get(UserType.TEACHER);
+
+	public Vector<Course> getCourses() {
+		Vector<Course> result = new Vector<Course>();
+		
+		for (User u : teachers) {
+			Teacher t = (Teacher) u;
+			result.addAll(t.getMarksForStudent(this).keySet());
+		}
+		
+		return result;
 	}
 	
-	Marks getMarksForSpecificCourse(Course course) {
-		Marks ret = null;
-		Vector <Teacher> teachers = UniversitySystem.getTeachers;
-		for(Teacher t : teachers)
-			for(Course c : t.getCourses)
-				if(c.equals(course))
-					ret = c.getStudentMarks.get(this);
-		return ret;
+	public HashMap <Course, HashSet <CourseFile> > getCourseFiles() {
+		HashMap <Course, HashSet <CourseFile> > result;
+		result = new HashMap <Course, HashSet <CourseFile> >() ;
+
+		for (Course c : getCourses()) {
+			result.put(c, c.getCourseFiles());
+		}
+		
+		return result;
 	}
 	
-	HashMap <Course, Marks> viewTranscript() {
+	public HashMap<Course, Marks> getMarks() {
+		HashMap<Course, Marks> result = new HashMap<Course, Marks>();
+		
+		for (User u : teachers) {
+			Teacher t = (Teacher) u;
+			result.putAll(t.getMarksForStudent(this));
+		}
+		
+		return result;
+	}
+	
+	public HashMap <Course, Marks> viewTranscript() {
 		HashMap <Course, Marks> ret = new HashMap <Course, Marks> ();
-		for(Teacher t : UniversitySystem.getTeachers())
-			for(Course c : t.getCourses())
-				for(Student s : c.getStudentMarks().keySet())
-					if(s.equals(this)) { 
-						ret.put(c, c.getStudentMarks().get(this));
-						break;
-					}
+		for (User u : teachers) {
+			Teacher t = (Teacher) u;
+			ret.putAll(t.getMarksForStudent(this));
+		}
 		return ret;
 	}
-	UserInfo getInfoTeacherOfSpeCourse(Course course) {
-		UserInfo ret = new UserInfo();
-		for(Teacher t : UniversitySystem.getTeachers())
-			for(Course c : t.getCourses())
-				if(c.equals(course))
-					ret = t.getInfo();
-		return ret;
+	
+	public UserInfo getInfoTeacherOfCourse(Course course) {
+		return course.getCourseTeacher().getInfo();
 	}
 	
 	public void sendItOrder(String text) {
 		TechSupport.addOrder(new Order(text, getId()));
+	}
+	
+	/* Bonus */
+	//Get attendance list for specific course
+	public HashMap <GregorianCalendar, Boolean> 
+			viewAttendanceListForSpecificCourse(Course course) {
+		return course.getAttendanceListForStudent(this);
 	}
 }

@@ -31,7 +31,7 @@ public abstract class ORManager extends User {
 	}
 
 	private void replyRejectedOrder(Order o, String text) {
-		Requester r = (Requester) UniversitySystem.getUser(o.getFrom());
+		Requester r = (Requester) getSys().getUser(o.getFrom());
 		r.addMessage(new Message(text, getId(), r.getId()));
 	}
 	

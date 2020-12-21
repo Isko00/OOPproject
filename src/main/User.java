@@ -11,6 +11,7 @@ public class User implements Serializable {
 	private static int lastId = 0;
 	private String password;
 	private UserInfo info;
+	private UniversitySystem system = UniversitySystem.getInstance();
 
 	public static void main(String[] args) {
 		System.out.println("qwe");
@@ -34,10 +35,10 @@ public class User implements Serializable {
 	
 	public UserInfo getInfo() { return info; }
 	
-	public String getPassword() {
-		return password;
-	}
+	public String getPassword() { return password; }
 
+	public UniversitySystem getSys() { return system; }
+	
 	public void setInfo(UserInfo info) { this.info = info; }
 	
 	public void setPassword(String password) {

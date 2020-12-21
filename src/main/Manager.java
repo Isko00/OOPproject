@@ -19,5 +19,18 @@ public class Manager extends ORManager {
 	
 	public static void addOrder(Order o) {
 		addOrder(orders, o);
-	}		
+	}
+	
+	public void addCourse(Teacher teacher, Course course) {
+		teacher.addCourse(course);
+	}
+	
+	public void addCourse(int tId, Course course) {
+		Teacher t = (Teacher) getSys().getUser(tId);
+		addCourse(t, course);
+	}
+
+	public UserInfo getTeacherInfo(int tId) {
+		return getSys().getUser(tId).getInfo();
+	}
 }

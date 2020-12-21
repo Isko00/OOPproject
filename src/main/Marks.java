@@ -5,17 +5,23 @@ public class Marks {
 	 * Final exam = marks[2]
 	 */
 	public int[] marks;
+	public int certificationNum = 0;
 
 	public Marks () {
 		marks = new int[3];
 	}
-	
+
+	public void putMark(int mark) {
+		marks[certificationNum] = mark;
+		certificationNum++;
+	}
+
 	public int hashCode() {
 	    return marks[0] * 100
 	    		+ marks[1] * 10
 	    		+ marks[2];
 	}
-
+	
 	public boolean equals(Object o) {
 		if ((this != o) 
 				|| this == null

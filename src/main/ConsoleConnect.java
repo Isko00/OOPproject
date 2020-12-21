@@ -26,6 +26,7 @@ public abstract class ConsoleConnect {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private static String read() {
 		String input = "";
     	try {
@@ -37,6 +38,7 @@ public abstract class ConsoleConnect {
     	return input;
 	}
 
+	@SuppressWarnings("unused")
     private static void closeStreams() {
     	try {
 			reader.close();

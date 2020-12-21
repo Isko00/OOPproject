@@ -18,7 +18,7 @@ public class Order implements Serializable, Comparable<Order> {
 		this.message = message;
 		this.from = from;
 	}
-
+	
 	public Order() { 
 		this("", 0);
 	}
