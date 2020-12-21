@@ -87,4 +87,9 @@ public class Course implements Serializable{
 		Marks m = studentsMarks.get(s);
 		m.putMark(mark);
 	}
+	
+	public String toString() {
+		return "Name [" + name + "]\n"
+				+ "Teacher [" + teacher + "]";
+	}
 }

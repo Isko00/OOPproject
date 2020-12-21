@@ -11,7 +11,9 @@ public class TechSupport extends ORManager {
 
 	public TechSupport() { super(); }
 	
-	public TechSupport(String password) { super(password); }
+	public TechSupport(String password, UniversitySystem system) { 
+		super(password, system); 
+	}
 	
 	public Order getUnreadOrder() {
 		return super.getUnreadOrder(orders);

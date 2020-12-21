@@ -41,7 +41,6 @@ public class UniversitySystem implements Serializable {
 				o.loadOrders();
 			}
 		}
-		oin.close();
 	}
 	
 	private UniversitySystem() {}
@@ -51,7 +50,7 @@ public class UniversitySystem implements Serializable {
 	}
 	
 	public User getUser(int id) {
-		return users.get(id);
+		return users.get((Integer) id);
 	}
 	
 	public HashMap<Integer, User> getUsers() {
@@ -64,7 +63,7 @@ public class UniversitySystem implements Serializable {
 		Vector<User> admins = new Vector<User>();
 		Vector<User> managers = new Vector<User>();
 		Vector<User> techSupports = new Vector<User>();
-		System.out.println("size " + users.values().size());
+		
 		for (User u : users.values()) {
 			if (u instanceof Teacher) {
 				teachers.add(u);

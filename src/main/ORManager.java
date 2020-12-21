@@ -34,14 +34,17 @@ public abstract class ORManager extends User {
 		o.setStatus(Statuses.ACCEPTED);
 	}
 
-	public void replyRejectedOrder(Order o, String text) {
-		Requester r = (Requester) getSys().getUser(o.getFrom());
-		r.addMessage(new Message(text, getId(), r.getId()));
-	}
-	
 	public void rejectOrder(Order o, String text) {
 		o.setStatus(Statuses.REJECTED);
 		replyRejectedOrder(o, text);
+	}
+	
+	public void replyRejectedOrder(Order o, String text) {
+		User u = getSys().getUser(o.getFrom());
+		if (u instanceof Requester) {
+			Requester r = (Requester) u;
+			r.addMessage(new Message(text, getId(), r.getId()));
+		} 
 	}
 	
 	public abstract void saveOrders();

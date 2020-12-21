@@ -29,23 +29,23 @@ public class Admin extends ORManager {
 		addOrder(orders, o);
 	}
 	
-	public void addUser(UserType type, String password) {
+	public void addUser(UserType type, String password, UniversitySystem system) {
 		User u;
 		switch(type) {
 		  case STUDENT:
-		    u = new Student(password);
+		    u = new Student(password, system);
 		    break;
 		  case TEACHER:
-			 u = new Teacher(password);
+			 u = new Teacher(password, system);
 		    break;
 		  case MANAGER:
-			 u = new Manager(password);
+			 u = new Manager(password, system);
 		    break;
 		  case TECHSUPPORT:
-			 u = new TechSupport(password);
+			 u = new TechSupport(password, system);
 		    break;
 		  case ADMIN:
-			 u = new Admin(password, getSys());
+			 u = new Admin(password, system);
 		    break;
 		  default:
 			 u = new User();

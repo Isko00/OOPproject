@@ -10,9 +10,11 @@ public class Student extends Requester {
 	 * 
 	 */
 	private static final long serialVersionUID = -6757927690609941571L;
+	
 	public Student() { super(); }
-	public Student(String password) {
-		super(password);
+	
+	public Student(String password, UniversitySystem system) {
+		super(password, system);
 	}
 	
 	public Vector<User> teachers 
@@ -66,6 +68,14 @@ public class Student extends Requester {
 	
 	public void sendItOrder(String text) {
 		TechSupport.addOrder(new Order(text, getId()));
+	}
+	
+	public void sendCourseRegistrationOrder(String text) {
+		sendCourseRegistrationOrder(new Order(text, getId()));
+	}
+	
+	public void sendCourseRegistrationOrder(Order o) {
+		Manager.addOrder(o);
 	}
 	
 	/* Bonus */

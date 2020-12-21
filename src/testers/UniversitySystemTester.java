@@ -22,12 +22,7 @@ public class UniversitySystemTester {
 	}
 	
 	public void println(String text) {
-		try {
-			writer.write(text + "\n");
-			writer.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		print(text + "\n");
 	}
 
 	public String read() {
@@ -77,29 +72,18 @@ public class UniversitySystemTester {
 		}
 	}
 	
-	private static User createUser(int userType, String pass, 
-			UniversitySystem US) {
-		
-		
-		return u;
-	}
-	
 	private void logIn(UniversitySystemTester UST, UniversitySystem US) {
 		UST.println("Enter id: ");
 		int id = UST.readInt();
 		UST.println("Enter password: ");
 		String pass = UST.read();
 
-		UST.println(US.getAllUsers().toString());
-		
-		UST.println("id = " + id + " pass = " + pass);
-
 		try {
 			u = US.autorise(id, pass);
 			if (u instanceof Student) {
-				//return studentMenu();
+				StudentTester.menu(UST, US);
 			} else if (u instanceof Teacher) {
-				//return teacherMenu();
+				TeacherTester.menu(UST, US);
 			} else if (u instanceof Manager) {
 				ManagerTester.menu(UST, US);
 			} else if (u instanceof TechSupport) {
@@ -107,9 +91,9 @@ public class UniversitySystemTester {
 			} else if (u instanceof Admin) {
 				AdminTester.menu(UST, US);
 			}
-			return;
 
 		} catch (Exception e) {
+			UST.println(e.toString());
 			UST.println(e.toString());
 			UST.println("Try again?");
 			UST.println("1) Again");
@@ -122,7 +106,7 @@ public class UniversitySystemTester {
 			}
 		}
 		
-		return;
+		menu(UST, US);
 	}
 	
 	private void register(UniversitySystemTester UST, UniversitySystem US) {
@@ -136,18 +120,18 @@ public class UniversitySystemTester {
 
 		UST.println("Enter password"); 
 		String pass = UST.read();
+		
+		Admin.addOrder(new Order("type [" + userType + "], " 
+				+ "pass [" + pass + "]", 0));
 
-		u = createUser(userType, pass, US);
-		US.register(u);
-
-		UST.println("Registration is over");
-		UST.println(US.getAllUsers().toString());
+		UST.println("Registrational order sended");
+		//UST.println(US.getAllUsers().toString());
 
 		UST.println("1) Register one more user");
 		UST.println("2) Back to menu");
-
-		if (UST.readInt() == 1) register(UST, US);
-		if (UST.readInt() == 2) menu(UST, US);
+		int choise = UST.readInt();
+		if (choise == 1) register(UST, US);
+		if (choise == 2) menu(UST, US); 
 	}
 
 	private void menu(UniversitySystemTester UST, UniversitySystem US) {
@@ -160,26 +144,28 @@ public class UniversitySystemTester {
 			switch(UST.readInt()) {  
 				case 1:
 					logIn(UST, US);
+					break;
 				case 2:
 					register(UST, US);
+					break;
 				default:
 					UST.println("Bye!!!"); 
-					UST.save();
 			}
 		} catch (Exception e) {
-			System.out.println("Something bad happened... \n Saving resources...");
+			UST.println("Something bad happened... \n Saving resources...");
 			e.printStackTrace();
-			UST.save();
 		}
 	}
 	
 	public static void main(String[] args) {
 		UniversitySystemTester UST = new UniversitySystemTester();
-		
 		if (new File("backUp").exists()) { UST.load(); }
 		
 		UniversitySystem US = UniversitySystem.getInstance();
-		/*UST.menu(UST, US);*/
-		ManagerTester.menu(UST, US);
+	
+		UST.menu(UST, US);
+		
+		UST.save();
+		UST.closeStreams();
 	}
 }

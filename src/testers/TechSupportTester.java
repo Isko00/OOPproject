@@ -6,7 +6,7 @@ import main.*;
 
 public class TechSupportTester {
 	public static void menu(UniversitySystemTester UST, UniversitySystem US) {
-		TechSupport t = new TechSupport("qwe");
+		TechSupport t = new TechSupport("qwe", US);
 		menu : while(true) {
 			UST.println("Select action:");
 			UST.println("1) Check unread order");
@@ -25,23 +25,25 @@ public class TechSupportTester {
 						UST.println("2) Reject order");
 						UST.println("3) Exit");
 
-						if (UST.readInt() == 1) t.acceptOrder(o);
-						if (UST.readInt() == 2) {
+						int choise = UST.readInt();
+						if (choise == 1) t.acceptOrder(o);
+						if (choise == 2) {
 							UST.println("Type reason you send for teacher:");
 							String reason = UST.read();
 							t.rejectOrder(o, reason);
 
 							UST.println("Order rejected");
 						}
-						if (UST.readInt() == 3) break menu;
+						if (choise == 3) break menu;
 						
 						UST.println("1) Check one more unread order");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
 						
-						if (UST.readInt() == 1) continue checkUnreadOrder;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+						choise = UST.readInt();
+						if (choise == 1) continue checkUnreadOrder;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
@@ -60,9 +62,10 @@ public class TechSupportTester {
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
 						
-						if (UST.readInt() == 1) continue checkOrders;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+						int choise = UST.readInt();
+						if (choise == 1) continue checkOrders;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}

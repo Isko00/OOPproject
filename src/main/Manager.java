@@ -13,7 +13,9 @@ public class Manager extends ORManager {
 	
 	public Manager() { super(); }
 	
-	public Manager(String password) { super(password); }
+	public Manager(String password, UniversitySystem system) { 
+		super(password, system); 
+	}
 
 	public Order getUnreadOrder() {
 		return super.getUnreadOrder(orders);
@@ -33,13 +35,13 @@ public class Manager extends ORManager {
 	
 	public void addCourse(int tId, String courseName) throws UserDataException {
 		User u = getSys().getUser(tId);
-		Teacher t;
 		if (u instanceof Teacher) {
-			t = (Teacher) u;
+			Teacher t = (Teacher) u;
+			addCourse(t, new Course(courseName, t));
 		} else {
+			System.out.println(system.toString());
 			throw new UserDataException("Wrong id!");
 		}
-		addCourse(t, new Course(courseName, t));
 	}
 
 	public UserInfo getTeacherInfo(int tId) {
@@ -90,9 +92,11 @@ public class Manager extends ORManager {
 	public Course getCourse(String name) {
 		for (User u : getSys().getAllUsers().get(UserType.TEACHER)) {
 			Teacher t = (Teacher) u;
-			for (Course c : t.getCourses()) {
-				if (c.getName().equals(name)) {
-					return c;
+			if (t.getCourses().size() > 0) {
+				for (Course c : t.getCourses()) {
+					if (c.getName().equals(name)) {
+						return c;
+					}
 				}
 			}
 		}

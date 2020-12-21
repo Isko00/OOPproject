@@ -10,10 +10,10 @@ public class Teacher extends Requester {
 	private static final long serialVersionUID = 5314522154448078014L;
 	private HashSet<Course> courses = new HashSet<Course> ();
 	
-	public Teacher() {super();}
+	public Teacher() { super(); }
 	
-	public Teacher(String password) {
-		super(password);
+	public Teacher(String password, UniversitySystem system) {
+		super(password, system);
 	}
 		
 	public void delCourseFile(Course course, CourseFile courseFile) {
@@ -69,6 +69,11 @@ public class Teacher extends Requester {
 		Manager.addOrder(o);
 	}
 	
+	public void sendCourseAdditionOrder(String s) {
+		Order o = new Order(s, getId());
+		Manager.addOrder(o);
+	}
+	
 	public void deleteCourse(String courseName) {
 		for (Course c : courses) {
 			if (c.getName().equals(courseName)) {
@@ -78,7 +83,7 @@ public class Teacher extends Requester {
 		}
 	}
 	
-	HashMap <Student, Marks> getStudentsForCourse(Course course) {
+	public HashMap <Student, Marks> getStudentsForCourse(Course course) {
 		return course.getStudentMarks();
 	}
 	

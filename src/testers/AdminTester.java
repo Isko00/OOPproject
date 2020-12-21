@@ -33,19 +33,19 @@ public class AdminTester {
 						
 						switch (userType) {
 							case 1:
-								a.addUser(UserType.STUDENT, pass);
+								a.addUser(UserType.STUDENT, pass, US);
 						    	break;
 							case 2:
-								a.addUser(UserType.TEACHER, pass);
+								a.addUser(UserType.TEACHER, pass, US);
 								break;
 							case 3:
-								a.addUser(UserType.ADMIN, pass);
+								a.addUser(UserType.ADMIN, pass, US);
 								break;
 							case 4:
-								a.addUser(UserType.MANAGER, pass);
+								a.addUser(UserType.MANAGER, pass, US);
 								break;
 							case 5:
-								a.addUser(UserType.TECHSUPPORT, pass);
+								a.addUser(UserType.TECHSUPPORT, pass, US);
 								break;
 						}
 			
@@ -54,10 +54,10 @@ public class AdminTester {
 						UST.println("1) Register one more user");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
-			
-						if (UST.readInt() == 1) continue register;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+						int choise = UST.readInt(); 
+						if (choise == 1) continue register;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						break;
 					}
 					break;
@@ -77,10 +77,11 @@ public class AdminTester {
 						UST.println("1) Update one more property");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
-						
-						if (UST.readInt() == 1) continue updateUserInfo;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+
+						int choise = UST.readInt(); 
+						if (choise == 1) continue updateUserInfo;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
@@ -97,10 +98,11 @@ public class AdminTester {
 						UST.println("1) Delete one more user");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
-						
-						if (UST.readInt() == 1) continue deleteUser;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+
+						int choise = UST.readInt(); 
+						if (choise == 1) continue deleteUser;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
@@ -129,10 +131,11 @@ public class AdminTester {
 						UST.println("1) Check one more unread order");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
-						
-						if (UST.readInt() == 1) continue checkUnreadOrder;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+
+						int choise = UST.readInt(); 
+						if (choise == 1) continue checkUnreadOrder;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
@@ -150,10 +153,11 @@ public class AdminTester {
 						UST.println("1) Print one more time");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
-						
-						if (UST.readInt() == 1) continue checkOrders;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+
+						int choise = UST.readInt(); 
+						if (choise == 1) continue checkOrders;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
@@ -168,10 +172,11 @@ public class AdminTester {
 						UST.println("1) Print one more time");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
-						
-						if (UST.readInt() == 1) continue getAllUsers;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+
+						int choise = UST.readInt(); 
+						if (choise == 1) continue getAllUsers;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}

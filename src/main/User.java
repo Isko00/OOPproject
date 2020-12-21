@@ -10,7 +10,7 @@ public class User implements Serializable {
 	private final int id;
 	private String password;
 	private UserInfo info;
-	private static UniversitySystem system = UniversitySystem.getInstance();
+	public static UniversitySystem system = UniversitySystem.getInstance();
 	
 	public User(String password, UniversitySystem newSystem) {
 		this(password);
@@ -20,7 +20,11 @@ public class User implements Serializable {
 	public User(String password, UserInfo info) {
 		this.setPassword(password);
 		this.info = info;
-		id = system.getLastId() + 1;
+		if (system.getUser(0) != null) {
+			id = system.getLastId() + 1;	
+		} else {
+			id = 0;
+		}
 	}
 	
 	public User(String password) {

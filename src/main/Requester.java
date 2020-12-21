@@ -10,8 +10,8 @@ public abstract class Requester extends User{
 	
 	public Requester() { super(); }
 	
-	public Requester(String password) {
-		super(password);
+	public Requester(String password, UniversitySystem system) {
+		super(password, system);
 	}
 	
 	Vector <Message> getMessageList() {

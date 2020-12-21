@@ -7,7 +7,7 @@ import main.*;
 
 public class ManagerTester {
 	public static void menu(UniversitySystemTester UST, UniversitySystem US) {
-		Manager m = new Manager("qwe");
+		Manager m = new Manager("qwe", US);
 		menu : while(true) {
 			UST.println("Select action:");
 			UST.println("1) Add course");
@@ -37,10 +37,10 @@ public class ManagerTester {
 						UST.println("1) add one more course");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
-			
-						if (UST.readInt() == 1) continue addCourse;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+						int choise = UST.readInt();
+						if (choise == 1) continue addCourse;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						break;
 					}
 					break;
@@ -53,7 +53,7 @@ public class ManagerTester {
 						
 						try {
 							m.addStudentToCourse(id, name);
-							UST.println("Property updated");
+							UST.println("Student added");
 						} catch(CourseOperationException e) {
 							e.printStackTrace();
 						}
@@ -62,9 +62,10 @@ public class ManagerTester {
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
 						
-						if (UST.readInt() == 1) continue addStudentToCourse;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+						int choise = UST.readInt(); 
+						if (choise == 1) continue addStudentToCourse;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
@@ -87,9 +88,10 @@ public class ManagerTester {
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
 						
-						if (UST.readInt() == 1) continue deleteCourse;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+						int choise = UST.readInt();
+						if (choise == 1) continue deleteCourse;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
@@ -104,29 +106,32 @@ public class ManagerTester {
 						UST.println("1) Accept order");
 						UST.println("2) Reject order");
 						UST.println("3) Exit");
-
-						if (UST.readInt() == 1) m.acceptOrder(o);
-						if (UST.readInt() == 2) {
+						
+						int choise = UST.readInt(); 
+						if (choise == 1) m.acceptOrder(o);
+						if (choise == 2) {
 							UST.println("Type reason you send for teacher:");
 							String reason = UST.read();
 							m.rejectOrder(o, reason);
 
 							UST.println("Order rejected");
 						}
-						if (UST.readInt() == 3) break menu;
+						if (choise == 3) break menu;
 						
 						UST.println("1) Check one more unread order");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
 						
-						if (UST.readInt() == 1) continue checkUnreadOrder;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+						choise = UST.readInt();
+						if (choise == 1) continue checkUnreadOrder;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
 					break;
 				case 5:
+					
 					checkOrders : while(true) {
 						Vector<Order> v = m.getOrders();
 						for (Order o : v) {
@@ -140,9 +145,10 @@ public class ManagerTester {
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
 						
-						if (UST.readInt() == 1) continue checkOrders;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+						int choise = UST.readInt();
+						if (choise == 1) continue checkOrders;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
@@ -162,9 +168,10 @@ public class ManagerTester {
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");
 						
-						if (UST.readInt() == 1) continue getAllCourses;
-						if (UST.readInt() == 2) continue menu;
-						if (UST.readInt() == 3) break menu;
+						int choise = UST.readInt(); 
+						if (choise == 1) continue getAllCourses;
+						if (choise == 2) continue menu;
+						if (choise == 3) break menu;
 						
 						break;
 					}
