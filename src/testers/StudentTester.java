@@ -1,10 +1,14 @@
 package testers;
 
+import java.time.format.DateTimeFormatter;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+
 import main.*;
 
 public class StudentTester {
-    public static void menu(UniversitySystemTester UST, UniversitySystem US) {
-        Student s = new Student("qwe", US);
+    public static void menu(UniversitySystemTester UST, UniversitySystem US, int sId) {
+        Student s = (Student) US.getUser(sId);
         menu : while(true) {
             UST.println("Choose command");
             UST.println("1) get courses list");
@@ -35,7 +39,15 @@ public class StudentTester {
                         if(course.getName().equals(courseName))
                             co = course;
                     }
-                    UST.println(s.viewAttendanceListForSpecificCourse(co).toString());  
+                    HashMap <GregorianCalendar, Boolean> map
+                    		= s.viewAttendanceListForSpecificCourse(co);
+                    String date = "";
+                    for (GregorianCalendar calendar : map.keySet()) {
+                    	date += calendar.toZonedDateTime()
+                    		      .format(DateTimeFormatter.ofPattern("d MMM uuuu"));
+                    	date += " [" + map.get(calendar) + "]";
+                    }
+                    UST.println(date);  
                     break;
                 case 6:
                     UST.println("Enter course name:");

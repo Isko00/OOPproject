@@ -54,10 +54,10 @@ public class ManagerTester {
 						try {
 							m.addStudentToCourse(id, name);
 							UST.println("Student added");
-						} catch(CourseOperationException e) {
+						} catch(Exception e) {
 							e.printStackTrace();
 						}
-						
+
 						UST.println("1) Update one more property");
 						UST.println("2) Back to menu");
 						UST.println("3) Exit");

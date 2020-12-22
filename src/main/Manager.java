@@ -52,19 +52,24 @@ public class Manager extends ORManager {
 		c.addStudent(s);
 	}
 	
-	public void addStudentToCourse(int sId, Course c) {
-		Student s = (Student) getSys().getUser(sId);
-		addStudentToCourse(s, c);
+	public void addStudentToCourse(int sId, Course c) throws UserDataException {
+		if (getSys().getUser(sId) instanceof Student) {
+			Student s = (Student) getSys().getUser(sId);
+			addStudentToCourse(s, c);
+		} else {
+			throw new UserDataException("Wrong student id!");
+		}
 	}
 	
 	public void addStudentToCourse(int sId, String courseName) 
-			throws CourseOperationException {
+			throws CourseOperationException, UserDataException {
 		
 		Course c = getCourse(courseName);
 		if (c == null) {
 			throw new CourseOperationException("Wrong course name!");
 		}
 		addStudentToCourse(sId, c);
+			
 	}
 	
 	public HashSet<Course> getAllCourses() {
@@ -74,7 +79,7 @@ public class Manager extends ORManager {
 			Teacher t = (Teacher) u;
 			result.addAll(t.getCourses());
 		}
-		
+
 		return result;
 	}
 	

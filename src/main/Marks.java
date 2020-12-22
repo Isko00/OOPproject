@@ -1,5 +1,10 @@
 package main;
-public class Marks {
+
+import java.io.Serializable;
+
+public class Marks implements Serializable {
+	
+	private static final long serialVersionUID = 845427730499347868L;
 	/* First certification = marks[0]
 	 * Second certification = marks[1]
 	 * Final exam = marks[2]
@@ -58,6 +63,10 @@ public class Marks {
 	}
 
 	public double getGPA() {
-	    return 3.00;
+		double result = 0;
+		for (int i : marks) {
+			result += i;
+		}
+	    return result / 25;
 	}
 }

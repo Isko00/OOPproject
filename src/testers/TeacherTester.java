@@ -6,6 +6,7 @@ import java.util.Vector;
 import main.*;
 
 public class TeacherTester {
+	
 	public static Course getCourse(Teacher t, String courseName) throws CourseOperationException {
 		Course co = null;
 		for(Course course : t.getCourses()) {
@@ -19,8 +20,8 @@ public class TeacherTester {
 			return co;
 		}
 	}
-	public static void menu(UniversitySystemTester UST, UniversitySystem US) {
-		Teacher t = new Teacher("qwe", US);
+	public static void menu(UniversitySystemTester UST, UniversitySystem US, int tId) {
+		Teacher t = (Teacher) US.getUser(tId);
 		menu : while(true) {
 			UST.println("Choose command");
 			UST.println("1) get courses list");

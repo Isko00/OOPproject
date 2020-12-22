@@ -11,14 +11,16 @@ public class Course implements Serializable{
 	private static final long serialVersionUID = -8711961955621914862L;
 	private String name;
 	private Teacher teacher;
-	private HashSet <CourseFile> courseFiles;
-	private HashMap <Student, Marks> studentsMarks;
-	private HashMap <GregorianCalendar, HashMap<Student, Boolean> > attendance;
+	private HashSet <CourseFile> courseFiles = new HashSet <CourseFile>();
+	private HashMap <Student, Marks> studentsMarks = new HashMap <Student, Marks>();
+	private HashMap <GregorianCalendar, HashMap<Student, Boolean> > attendance 
+			= new HashMap <GregorianCalendar, HashMap<Student, Boolean> >();
 	
 	public Course() {}
 
 	public Course(String name, Teacher teacher) {
 		this.name = name;
+		this.teacher = teacher;
 	}
 	
 	//Add student for course

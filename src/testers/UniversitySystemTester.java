@@ -81,9 +81,9 @@ public class UniversitySystemTester {
 		try {
 			u = US.autorise(id, pass);
 			if (u instanceof Student) {
-				StudentTester.menu(UST, US);
+				StudentTester.menu(UST, US, u.getId());
 			} else if (u instanceof Teacher) {
-				TeacherTester.menu(UST, US);
+				TeacherTester.menu(UST, US, u.getId());
 			} else if (u instanceof Manager) {
 				ManagerTester.menu(UST, US);
 			} else if (u instanceof TechSupport) {
@@ -157,11 +157,21 @@ public class UniversitySystemTester {
 		}
 	}
 	
+	public static void settleAnAborigine(UniversitySystemTester UST, 
+				UniversitySystem US) {
+		
+		Admin a = new Admin("123", US);
+		US.register(a);
+		a.updateInfo(0, "name", "Aborigine");
+	}
+	
 	public static void main(String[] args) {
 		UniversitySystemTester UST = new UniversitySystemTester();
 		if (new File("backUp").exists()) { UST.load(); }
 		
 		UniversitySystem US = UniversitySystem.getInstance();
+		
+		//settleAnAborigine(UST, US);
 	
 		UST.menu(UST, US);
 		
