@@ -165,17 +165,31 @@ public class UniversitySystemTester {
 		a.updateInfo(0, "name", "Aborigine");
 	}
 	
-	public static void main(String[] args) {
+	public static void useSys() {
 		UniversitySystemTester UST = new UniversitySystemTester();
 		if (new File("backUp").exists()) { UST.load(); }
 		
 		UniversitySystem US = UniversitySystem.getInstance();
-		
-		//settleAnAborigine(UST, US);
 	
 		UST.menu(UST, US);
 		
 		UST.save();
 		UST.closeStreams();
+	}
+	
+	public static void renewSys() {
+		UniversitySystemTester UST = new UniversitySystemTester();
+		
+		UniversitySystem US = UniversitySystem.getInstance();
+		
+		settleAnAborigine(UST, US);
+		
+		UST.save();
+		UST.closeStreams();
+	}
+	
+	public static void main(String[] args) {
+		//renewSys();
+		useSys();
 	}
 }

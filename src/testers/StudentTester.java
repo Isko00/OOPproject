@@ -17,7 +17,9 @@ public class StudentTester {
             UST.println("4) get view transcript"); 
             UST.println("5) get Attendance List For Specific Course");
             UST.println("6) register for course");
-            UST.println("7) Exit");
+            UST.println("7) get self info");
+            UST.println("8) get self system");
+            UST.println("9) Exit");
             switch(UST.readInt()) {  
                 case 1:
                     UST.println(s.getCourses().toString());
@@ -58,6 +60,14 @@ public class StudentTester {
                             + "], teacher [" + teacherName + "]");
                     UST.println("Course: " + course 
                         + " addition request for Student [" + s.getId() + "] sended.");
+                    break;
+                case 7:
+                    UserInfo info = s.getInfo();
+                    UST.println(info.toString());
+                    break;
+                case 8:
+                    UniversitySystem us1 = s.getSys();
+                    UST.println(us1.toString());
                     break;
                 default :
                     break menu;

@@ -17,13 +17,14 @@ public class Student extends Requester {
 		super(password, system);
 	}
 	
-	public Vector<User> teachers 
-			= getSys().getAllUsers().get(UserType.TEACHER);
+	public Vector<User> getTeachers() {
+		return getSys().getAllUsers().get(UserType.TEACHER);
+	}
 
 	public Vector<Course> getCourses() {
 		Vector<Course> result = new Vector<Course>();
 		
-		for (User u : teachers) {
+		for (User u : getTeachers()) {
 			Teacher t = (Teacher) u;
 			result.addAll(t.getMarksForStudent(this).keySet());
 		}
@@ -45,7 +46,7 @@ public class Student extends Requester {
 	public HashMap<Course, Marks> getMarks() {
 		HashMap<Course, Marks> result = new HashMap<Course, Marks>();
 		
-		for (User u : teachers) {
+		for (User u : getTeachers()) {
 			Teacher t = (Teacher) u;
 			result.putAll(t.getMarksForStudent(this));
 		}
@@ -55,7 +56,7 @@ public class Student extends Requester {
 	
 	public HashMap <Course, Marks> viewTranscript() {
 		HashMap <Course, Marks> ret = new HashMap <Course, Marks> ();
-		for (User u : teachers) {
+		for (User u : getTeachers()) {
 			Teacher t = (Teacher) u;
 			ret.putAll(t.getMarksForStudent(this));
 		}

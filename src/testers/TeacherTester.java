@@ -33,7 +33,8 @@ public class TeacherTester {
 			UST.println("7) delete course");
 			UST.println("8) get students for course");
 			UST.println("9) put attendance");
-			UST.println("10) Exit");
+			UST.println("10) get system");
+			UST.println("11) Exit");
 			
 			switch(UST.readInt()) {  
 				case 1:
@@ -106,11 +107,15 @@ public class TeacherTester {
 					String courseName6 = UST.read();
 					t.sendCourseAdditionOrder(courseName6);
 					UST.println("order sent");
+
+					break;
 				case 7:
 					UST.println("Enter course name:");
 					String courseName7 = UST.read();
 					t.deleteCourse(courseName7);
 					UST.println("Course: " + courseName7 + " successfully deleted");
+
+					break;
 				case 8:
 					UST.println("Enter course name:");
 					String courseName8 = UST.read();
@@ -120,6 +125,7 @@ public class TeacherTester {
 					} catch(CourseOperationException e) {
 						e.printStackTrace();
 					}
+					break;
 				case 9:
 					UST.println("Enter course name");
 					String courseName9 = UST.read();
@@ -141,6 +147,10 @@ public class TeacherTester {
 					} catch(CourseOperationException e) {
 						e.printStackTrace();
 					}
+					break;
+				case 10:
+					UST.println(t.getSys().toString());
+					break;
 				default :
 					break menu;
 			}

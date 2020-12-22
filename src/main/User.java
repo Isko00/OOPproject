@@ -10,7 +10,7 @@ public class User implements Serializable {
 	private final int id;
 	private String password;
 	private UserInfo info;
-	public static UniversitySystem system = UniversitySystem.getInstance();
+	public UniversitySystem system = UniversitySystem.getInstance();
 	
 	public User(String password, UniversitySystem newSystem) {
 		this(password);

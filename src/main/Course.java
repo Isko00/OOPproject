@@ -26,6 +26,7 @@ public class Course implements Serializable{
 	//Add student for course
 	public void addStudent(Student student) {
 		studentsMarks.put(student, new Marks());
+		System.out.println(studentsMarks);
 	}
 
 	//Delete course file
